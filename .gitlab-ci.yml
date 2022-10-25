@@ -4,6 +4,7 @@ image: node:latest
 stages:
   - install
   - build
+  - exercise
   - test
 
 variables:
@@ -33,15 +34,6 @@ bundle_app:
     paths:
       - build/
 
-#######Exercise Agile############
-exercise_job:
-  stage: exercise
-  only:
-    - main
-  script:
-    - echo "Run test exercise"
-############################
-
 e2etest:
   image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test 
@@ -63,4 +55,14 @@ test_jobX:
     - branchX
   script:
     - echo "Run test job X "
+
+#######Exercise Agile############
+exercise_job:
+  stage: exercise
+  only:
+    - main
+  script:
+    - echo "Run test exercise"
+############################
+
 
