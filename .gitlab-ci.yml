@@ -53,4 +53,4 @@ test_jobX:
     - main
     - branchX
   script:
-    - echo "Run test job X"
+    - echo "Run test job X "
