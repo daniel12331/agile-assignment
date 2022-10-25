@@ -29,7 +29,7 @@ bundle_app:
   stage: build
   script:
     - npm run build
-        artifacts:
+  artifacts:
     paths:
       - build/
       
