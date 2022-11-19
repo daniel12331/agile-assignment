@@ -1,14 +1,41 @@
 import React from "react";
-import Movie from "../movieCard";
+import ActorCard from "../actorCard"
+import MovieCard from "../movieCard";
 import Grid from "@mui/material/Grid";
+import ActorCreditsCard from "../actorCreditsCard";
 
-const MovieList = (props) => {
-  let movieCards = props.movies?.map((m) => (
+const MovieList = ( {actors, movies, action, title, credits, type}) => {
+
+
+
+  let movieCards = movies?.map((m) => (
     <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-      <Movie key={m.id} movie={m} selectFavorite={props.selectFavorite} />
+      <MovieCard key={m.id} movie={m} action={action} />
+    </Grid>
+    
+  ))
+  
+ 
+  let actorCards = actors?.map((a) => (
+    <Grid key={a.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+      <ActorCard key={a.id} actor={a} />
     </Grid>
   ));
-  return movieCards;
-};
+
+  let actoreCredits = credits?.cast.map((m) => (
+    <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+    <ActorCreditsCard key={m.id} movie={m}  />
+  </Grid>
+  ));
+ 
+  
+    return type === 1 || type === 0 || title === 'Discover Movies' || title === 'Upcoming Movies' || title === 'Popular TV Shows'? movieCards: title === 'Credits' ? actoreCredits: title === "Most Popular Actors" || type === 2? actorCards : ''
+
+
+ 
+
+    
+
+  };
 
 export default MovieList;
