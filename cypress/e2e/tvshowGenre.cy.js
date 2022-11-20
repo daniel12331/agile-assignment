@@ -1,20 +1,20 @@
 
 describe("Test Movie Genres", () => {
-    let moviesWithGenre
-    const genreID = '35' //Western Genre ID
+    let tvshowWithGenre
+    const genreID = '10766' //Soap Genre ID
     const email = "daniel123@gmail.com"
     const password = "123456"
 
     describe("Get specfic genre", () => {
         before(() => {
           cy.request(
-            `https://api.themoviedb.org/3/discover/movie?api_key=${Cypress.env(
+            `https://api.themoviedb.org/3/discover/tv?api_key=${Cypress.env(
               "TMDB_KEY"
             )}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genreID}`
           )      
             .its("body")
             .then((response) => {
-              moviesWithGenre = response.results;
+              tvshowWithGenre = response.results;
             });
         });
       
@@ -42,9 +42,17 @@ describe("Test Movie Genres", () => {
             .click();  
             cy.url().should("eq", `http://localhost:3000/`);
            });
+
     });
   
     describe("Click Genre Button", () => {
+
+        it("Navigate to TV Show page", () => {
+            cy.get("button")
+            .contains("TVShows")
+            .click(); 
+            cy.url().should("eq", `http://localhost:3000/movies/tvshows`);
+           });
     
         it("Click Genre", () => {
          cy.get(`#${genreID}`)
@@ -52,9 +60,9 @@ describe("Test Movie Genres", () => {
          .click()
         });
 
-        it("Check the first title of movie", () => {
+        it("Check the first title of tvshow", () => {
             cy.get(".MuiCardHeader-content").eq(0)
-            .contains(moviesWithGenre[0].title)
+            .contains(tvshowWithGenre[0].original_name)
            });
 
     });
