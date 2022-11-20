@@ -38,6 +38,7 @@ const Genres = ({
     <div style={{ padding: "6px 0" }}>
       {selectedGenres?.map((genre) => (
         <Chip
+          id={genre.id}
           style={{ margin: 2 }}
           label={genre?.name}
           key={genre?.id}
@@ -49,6 +50,7 @@ const Genres = ({
       ))}
       {genres?.map((genre) => (
         <Chip
+          id={genre.id}
           style={{ margin: 2 }}
           label={genre.name}
           key={genre.id}
