@@ -1,5 +1,5 @@
 
-describe("Test Movie Genres", () => {
+describe("Test tv show similarity", () => {
     let similarTvShowID
     const tvshowID = '90462' //Chucky TV show ID
     const email = "daniel123@gmail.com"

@@ -1,5 +1,5 @@
 
-describe("Test Movie Genres", () => {
+describe("Test Actor Credits", () => {
     let actorCredits
     const actorID = '1136406' //Chucky TV show ID
     const email = "daniel123@gmail.com"

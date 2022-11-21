@@ -1,7 +1,7 @@
 
 describe("Test Search Movie", () => {
     let movieList
-    const movieQuery = 'Spiderman' //Chucky TV show ID
+    const movieQuery = 'Spiderman' //Movie Query
     const email = "daniel123@gmail.com"
     const password = "123456"
 

@@ -1,21 +1,21 @@
 
-describe("Test Search TV Show", () => {
-    let tvshowList
-    const tvShowQuery = 'Simpson' //TV show Query
+describe("Test Search Movie", () => {
+    let actorList
+    const actorQuery = 'Tom Hanks' //Actor Query
     const email = "daniel123@gmail.com"
     const password = "123456"
 
-    describe("Get specfic tv show by search key", () => {
+    describe("Get specfic actor by search key", () => {
         before(() => {
           cy.request(
-            `https://api.themoviedb.org/3/search/tv?api_key=${Cypress.env(
+            `https://api.themoviedb.org/3/search/person?api_key=${Cypress.env(
                 "TMDB_KEY"
-              )}&language=en-US&include_adult=false&include_video=false&page=1&query=${tvShowQuery}`
+              )}&language=en-US&include_adult=false&include_video=false&page=1&query=${actorQuery}`
           )      
           
             .its("body")
             .then((response) => {
-                tvshowList = response.results;
+                actorList = response.results;
             });
         });
       
@@ -46,7 +46,7 @@ describe("Test Search TV Show", () => {
 
     });
 
-    describe("Navigate to search page and click tvShow tab", () => {
+    describe("Navigate to search page and click Actor tab", () => {
 
         it("Navigate to search page ", () => {
             cy.get("button")
@@ -55,19 +55,19 @@ describe("Test Search TV Show", () => {
             cy.url().should("eq", `http://localhost:3000/searchpage`);
            });
 
-           it("Click TV Show tab", () => {
+           it("Click Actor tab", () => {
             cy.get("button")
-            .contains("Search TV Shows")
+            .contains("Search Actors")
             .click(); 
            });
     });
   
     describe("Search Query in search box", () => {
 
-        it("Input tvshowQuery into search box", () => {
+        it("Input actorQuery into search box", () => {
             cy.get("#search_box")
             .clear()
-            .type(tvShowQuery)
+            .type(actorQuery)
            });
 
            it("Click search button", () => {
@@ -77,13 +77,13 @@ describe("Test Search TV Show", () => {
          
     });
 
-    describe("Check if tvshowList has same results", () => {
+    describe("Check if actorList has same results", () => {
         
-        it("Check the first title of tvshow", () => {
+        it("Check the first title of actor results", () => {
             cy.wait(2000) //wait 2 seconds for data to fetch
 
             cy.get(".MuiCardHeader-content").eq(0)
-            .contains(tvshowList[0].name)
+            .contains(actorList[0].name)
            });
     });
 
