@@ -1,3 +1,4 @@
+import { shouldSkipGeneratingVar } from "@mui/material";
 
 
 Cypress.Commands.add('registerUser', (name,email,password,cpassword) => {
@@ -51,6 +52,43 @@ Cypress.Commands.add('registerUser', (name,email,password,cpassword) => {
 
   
   });
+
+  Cypress.Commands.add('Navigate', (tab) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+    cy.get("button")
+    .contains(tab)
+    .click(); 
+  });
+
+  Cypress.Commands.add('MoreInfo', (ID,type) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+    cy.get(`a[href*="actors/${ID}"]`)
+    .click()
+     cy.url().should("eq", `http://localhost:3000/${type}/${ID}`);
+  });
+
+  Cypress.Commands.add('CheckCard', (dataCheck) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+
+    cy.wait(2000) // wait 2 seconds for data to fetch and display
+   
+    cy.get(".MuiCardHeader-content").eq(0)
+    .contains(dataCheck)
+   
+  });
+
+  
+
+
 
 
 
