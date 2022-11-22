@@ -1,25 +1,34 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add('registerUser', (name,email,password,cpassword) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+
+    cy.visit("/")
+    cy.get("a").contains("Not a member yet?").click();
+
+    cy.get("#name").clear().type(name);   
+      cy.get("#email").clear().type(email); 
+      cy.get("#password").clear().type(password);
+      cy.get("#confirmpasssword").clear().type(cpassword); 
+
+      cy.get("button").contains("Register").click();  
+      cy.url().should("eq", `http://localhost:3000/`);
+  
+  });
+
+
+
+
+  Cypress.Commands.add('LogoutUser', () => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+    cy.get("button").contains("Logout").click()
+  
+    cy.url().should("eq", `http://localhost:3000/landing`);
+  
+  });

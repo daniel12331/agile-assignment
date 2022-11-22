@@ -1,24 +1,23 @@
+import React, { lazy, Suspense, useState } from "react";
 import { BrowserRouter, Route, Navigate, Routes, Outlet } from "react-router-dom";
-import HomePage from "./pages/homePage";
-import MoviePage from "./pages/movieDetailsPage";
-import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
-import UpComingMoviePage from "./pages/upComingMoviePage";
-import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { createRoot } from "react-dom/client";
 import MoviesContextProvider from "./contexts/moviesContext";
-import AddMovieReviewPage from './pages/addMovieReviewPage';
-import ActorsPage from "./pages/actorsPage";
-import ActorsDetailPage from "./pages/actorsDetailPage"
-import TvShowsPage from "./pages/tvShowPage"
-import TvShowDetailPage from './pages/tvShowDetailPage'
-import LoginPage from "./pages/loginPage";
-import React,{useState} from "react";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import SearchPage from "./pages/searchPage";
-
+const MoviePage = lazy(() => import("./pages/movieDetailsPage"));
+const LoginPage = lazy(() => import("./pages/loginPage"));
+const TvShowDetailPage = lazy(() => import("./pages/tvShowDetailPage"));
+const TvShowsPage = lazy(() => import("./pages/tvShowPage"));
+const ActorsDetailPage = lazy(() => import("./pages/actorsDetailPage"));
+const ActorsPage = lazy(() => import("./pages/actorsPage"));
+const AddMovieReviewPage = lazy(() => import("./pages/addMovieReviewPage"));
+const MovieReviewPage = lazy(() => import("./pages/movieReviewPage"));
+const FavoriteMoviesPage = lazy(() => import("./pages/favoriteMoviesPage"));
+const UpComingMoviePage = lazy(() => import("./pages/upComingMoviePage"));
+const SearchPage = lazy(() => import("./pages/searchPage"));
+const HomePage = lazy(()=> import("./pages/homePage"))
 
 function PrivateOutlet() {
   const {currentUser} = useAuth()
@@ -39,10 +38,11 @@ const App = () => {
           {   showNav &&
             <SiteHeader />} 
       <MoviesContextProvider>
+      <Suspense fallback={<h1>Loading Page</h1>}>
       <Routes>
         <Route path="/" element={<PrivateOutlet/>}>
+        <Route path="/" element={<HomePage/>}/>
         <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
-        
         <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
         <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
         <Route path="/movies/upcomingmovies" element={<UpComingMoviePage />} />
@@ -52,13 +52,12 @@ const App = () => {
         <Route path="/actors/:id" element={<ActorsDetailPage />} />
         <Route path="/tvshows/:id" element={<TvShowDetailPage />} />
         <Route path="/searchpage" element={<SearchPage />} />
-        <Route path="" element={<HomePage/>}/>
-
-
         </Route>
+
         <Route path="/landing" element={<LoginPage funcNav={setShowNav}/>}  />
         <Route path="*" element={ <Navigate to="/" /> } />
       </Routes>
+      </Suspense>
       </MoviesContextProvider>
       </AuthProvider>
     </BrowserRouter>
