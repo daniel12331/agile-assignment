@@ -32,3 +32,26 @@ Cypress.Commands.add('registerUser', (name,email,password,cpassword) => {
     cy.url().should("eq", `http://localhost:3000/landing`);
   
   });
+
+
+  Cypress.Commands.add('LoginUser', (email,password) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+         cy.visit("/")
+
+         cy.get("#email").clear().type(email); 
+         cy.get("#password").clear().type(password);
+
+         cy.get("button").contains("Sign In").click();  
+
+         cy.get(".MuiTypography-h4").contains(email)
+      
+
+  
+  });
+
+
+
+
