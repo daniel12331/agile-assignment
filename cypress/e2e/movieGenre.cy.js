@@ -1,4 +1,4 @@
-
+import "../support/commands"
 describe("Test Movie Genres", () => {
     let moviesWithGenre
     const genreID = '35' //Western Genre ID
@@ -22,39 +22,21 @@ describe("Test Movie Genres", () => {
     describe("Login already created user", () => {
     
         it("Check if user directed to landing page when visiting the home page", () => {
-         cy
-         .visit("/")
-        });
-
-        it("Fill in user details", () => {
-            cy.get("#email")
-            .clear()
-            .type(email); 
-            
-            cy.get("#password")
-            .clear()
-            .type(password);
-           });
-
-           it("Log in", () => {
-            cy.get("button")
-            .contains("Sign In")
-            .click();  
-            cy.url().should("eq", `http://localhost:3000/`);
+         cy.LoginUser(email,password)
            });
     });
   
     describe("Click Genre Button", () => {
     
         it("Click Genre", () => {
-         cy.get(`#${genreID}`)
-         .should('have.id', genreID)
-         .click()
+          cy.ClickGenre(genreID)
+         
         });
 
         it("Check the first title of movie", () => {
-            cy.get(".MuiCardHeader-content").eq(0)
-            .contains(moviesWithGenre[0].title)
+
+           cy.CheckCard(moviesWithGenre[0].original_title)
+           cy.LogoutUser()
            });
 
     });

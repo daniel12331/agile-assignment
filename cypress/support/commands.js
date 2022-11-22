@@ -86,6 +86,20 @@ Cypress.Commands.add('registerUser', (name,email,password,cpassword) => {
    
   });
 
+  Cypress.Commands.add('ClickGenre', (genreID) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+
+        cy.get(`#${genreID}`)
+        .should('have.id', genreID)
+        .click()
+
+
+   
+  });
+
   
 
 
