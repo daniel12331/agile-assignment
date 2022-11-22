@@ -1,4 +1,4 @@
-
+import "../support/commands"
 describe("Test Search Movie", () => {
     let movieList
     const movieQuery = 'Spiderman' //Movie Query
@@ -20,74 +20,47 @@ describe("Test Search Movie", () => {
         });
       
         
-    describe("Login already created user", () => {
+      
+        describe("Login already created user", () => {
     
-        it("Check if user directed to landing page when visiting the home page", () => {
-         cy
-         .visit("/")
+            it("Login User", () => {
+                cy.LoginUser(email,password)
+               });
+    
         });
-
-        it("Fill in user details", () => {
-            cy.get("#email")
-            .clear()
-            .type(email); 
+    
+        describe("Navigate to search page and click Actor tab", () => {
+    
+            it("Navigate to search page ", () => {
+                cy.Navigate("Search")
+                cy.url().should("eq", `http://localhost:3000/searchpage`);
+               });
+    
+               it("Click Actor tab", () => {
+                cy.Navigate("Search Movies")
+               });
+        });
+      
+        describe("Search Query in search box", () => {
+    
+            it("Input actorQuery into search box", () => {
+                cy.InputQuery(movieQuery)
+               });
+    
+               
+             
+        });
+    
+        describe("Check if actorList has same results", () => {
             
-            cy.get("#password")
-            .clear()
-            .type(password);
-           });
-
-           it("Log in", () => {
-            cy.get("button")
-            .contains("Sign In")
-            .click();  
-            cy.url().should("eq", `http://localhost:3000/`);
-           });
-
-    });
-
-    describe("Navigate to search page and click movie tab", () => {
-
-        it("Navigate to search page ", () => {
-            cy.get("button")
-            .contains("Search")
-            .click(); 
-            cy.url().should("eq", `http://localhost:3000/searchpage`);
-           });
-
-           it("Click Movie tab", () => {
-            cy.get("button")
-            .contains("Search Movies")
-            .click(); 
-           });
-    });
-  
-    describe("Search Query in search box", () => {
-
-        it("Input movieQuery into search box", () => {
-            cy.get("#search_box")
-            .clear()
-            .type(movieQuery)
-           });
-
-           it("Click search button", () => {
-            cy.get("#search_query")
-            .click()
-           });
-         
-    });
-
-    describe("Check if movieQuery has same results", () => {
-        
-        it("Check the first title of tvshow", () => {
-            cy.wait(2000) //wait 2 seconds for data to fetch
-
-            cy.get(".MuiCardHeader-content").eq(0)
-            .contains(movieList[0].title)
-           });
+            it("Check the first title of actor results", () => {
+                cy.CheckCard(movieList[0].title)
+               });
+        });
+    
     });
 
 });
-});
+
 
   
