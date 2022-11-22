@@ -4,8 +4,7 @@ image: node:latest
 stages:
   - install
   - build
-  - exercise
-  - test
+  - testing
 
 variables:
    npm_config_cache: "$CI_PROJECT_DIR/.npm"
@@ -34,35 +33,15 @@ bundle_app:
     paths:
       - build/
 
-e2etest:
+testing:
   image: cypress/browsers:node12.14.1-chrome85-ff81
-  stage: test 
-  script:
-    - echo "Run tests in headless mode"
-    - npm run start:ci
-    
-build_jobX:
-  stage: build
+  stage: testing
   only:
-    - develop
+   - main
   script:
-    - echo "build job X on demoBranch works"
-    
-test_jobX:
-  stage: test
-  only:
-    - main
-    - branchX
-  script:
-    - echo "Run test job X "
+   - echo "Run tests in headless mode"
+   - npm run start:ci
 
-#######Exercise Agile############
-exercise_job:
-  stage: exercise
-  only:
-    - main
-  script:
-    - echo "Run test exercise"
-############################
+
 
 
