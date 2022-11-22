@@ -1,4 +1,4 @@
-
+import "../support/commands"
 describe("Review Movie test", () => {
     
     const email = "daniel123@gmail.com"
@@ -9,27 +9,11 @@ describe("Review Movie test", () => {
         
     describe("Login already created user", () => {
     
-        it("Check if user directed to landing page when visiting the home page", () => {
-         cy
-         .visit("/")
+        it("Login User", () => {
+         cy.LoginUser(email,password)
         });
 
-        it("Fill in user details", () => {
-            cy.get("#email")
-            .clear()
-            .type(email); 
-            
-            cy.get("#password")
-            .clear()
-            .type(password);
-           });
-
-           it("Log in", () => {
-            cy.get("button")
-            .contains("Sign In")
-            .click();  
-            cy.url().should("eq", `http://localhost:3000/`);
-           });
+       
 
     });
 
@@ -55,13 +39,11 @@ describe("Review Movie test", () => {
     describe("Navigate to favourite page", () => {
 
         it("Go to favourite page", () => {
-            cy.get("button")
-            .contains("Favorites")
-            .click();
+            cy.Navigate("Favorites");
+        });
+        
+        it("Check favourites", () => {
             cy.url().should("eq", `http://localhost:3000/movies/favorites`);
-           });
-
-           it("Check favourites", () => {
             cy.get(".MuiCardHeader-content")
             .should("have.length", 1);
            });
@@ -71,12 +53,11 @@ describe("Review Movie test", () => {
     describe("Add movie review", () => {
 
         it("Navigate to review form", () => {
-            cy.get(`a[href*="reviews/form"]`)
-            .click()
+           cy.NavigateElement('a[href*="reviews/form"]')
+        });
+        
+        it("Fill in review details and select rating", () => {
             cy.url().should("eq", `http://localhost:3000/reviews/form`);
-           });
-
-           it("Fill in review details and select rating", () => {
             cy.get("#author")
             .clear()
             .type(authorName); 
@@ -99,7 +80,10 @@ describe("Review Movie test", () => {
            it("Check if you review was submitted successfully", () => {
             cy.get(".MuiAlert-message")
             .contains('Thank you for submitting a review')
+
+            cy.get('body').click(50, 50, { force: true })
            
+            cy.LogoutUser()
            });
         
     });

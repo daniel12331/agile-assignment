@@ -113,6 +113,7 @@ const ReviewForm = ({ movie }) => {
           severity="success"
           variant="filled"
           onClose={handleSnackClose}
+          id='Close'
         >
           <Typography variant="h4">
             Thank you for submitting a review
