@@ -95,9 +95,15 @@ Cypress.Commands.add('registerUser', (name,email,password,cpassword) => {
         cy.get(`#${genreID}`)
         .should('have.id', genreID)
         .click()
+  });
 
+  Cypress.Commands.add('NavigateElement', (element) => {
 
-   
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+    cy.get(`a[href*="reviews/form"]`)
+     .click()
   });
 
   
