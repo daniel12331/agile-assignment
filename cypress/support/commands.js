@@ -106,6 +106,21 @@ Cypress.Commands.add('registerUser', (name,email,password,cpassword) => {
      .click()
   });
 
+  Cypress.Commands.add('InputQuery', (query) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    })
+
+   
+        cy.get("#search_box")
+        .clear()
+        .type(query)
+  
+        cy.get("#search_query")
+        .click()
+  });
+
   
 
 
