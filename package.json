@@ -31,7 +31,6 @@
     "build-storybook": "build-storybook -s public",
     "start:ci": "start-server-and-test 'http-server ./build  -p 3000 -P http://localhost:3000?' 3000 'cypress run --browser chrome '"
   },
-
   "browserslist": {
     "production": [
       ">0.2%",
@@ -57,7 +56,9 @@
     "@storybook/testing-library": "^0.0.13",
     "babel-plugin-named-exports-order": "^0.0.2",
     "cypress": "^11.1.0",
+    "http-server": "^13.0.2",
     "prop-types": "^15.8.1",
+    "start-server-and-test": "^1.14.0",
     "webpack": "^5.74.0"
   }
 }
