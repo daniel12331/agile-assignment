@@ -1,4 +1,4 @@
-
+import "../support/commands"
 describe("Test Movie Genres", () => {
     let tvshowWithGenre
     const genreID = '10766' //Soap Genre ID
@@ -17,57 +17,35 @@ describe("Test Movie Genres", () => {
               tvshowWithGenre = response.results;
             });
         });
+    
+      describe("Login already created user", () => {
       
-        
-    describe("Login already created user", () => {
-    
-        it("Check if user directed to landing page when visiting the home page", () => {
-         cy
-         .visit("/")
+          it("Login User", () => {
+           cy.LoginUser(email,password)
+             });
+      });
+      describe("Navigate to tvshows", () => {
+      
+        it("Navigate to tvshows page", () => {
+          cy.Navigate("TVShows")
+         
         });
-
-        it("Fill in user details", () => {
-            cy.get("#email")
-            .clear()
-            .type(email); 
-            
-            cy.get("#password")
-            .clear()
-            .type(password);
-           });
-
-           it("Log in", () => {
-            cy.get("button")
-            .contains("Sign In")
-            .click();  
-            cy.url().should("eq", `http://localhost:3000/`);
-           });
-
-    });
+    
+      describe("Click Genre Button", () => {
+      
+          it("Click Genre", () => {
+            cy.ClickGenre(genreID)
+           
+          });
   
-    describe("Click Genre Button", () => {
-
-        it("Navigate to TV Show page", () => {
-            cy.get("button")
-            .contains("TVShows")
-            .click(); 
-            cy.url().should("eq", `http://localhost:3000/movies/tvshows`);
-           });
-    
-        it("Click Genre", () => {
-         cy.get(`#${genreID}`)
-         .should('have.id', genreID)
-         .click()
-        });
-
-        it("Check the first title of tvshow", () => {
-            cy.get(".MuiCardHeader-content").eq(0)
-            .contains(tvshowWithGenre[0].original_name)
-           });
-
-    });
-
+          it("Check the first title of movie", () => {
+  
+             cy.CheckCard(tvshowWithGenre[0].name)
+             cy.LogoutUser()
+             });
+  
+      });
+  });
 });
 });
-
   
