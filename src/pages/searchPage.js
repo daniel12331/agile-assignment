@@ -34,12 +34,15 @@ const SearchPage = () => {
         marginTop: 3,
         width:'96%'
       }}
+      id='search_box'
     className="searchbox"
     label="Search"
     variant="filled"
     onChange={(e) => setInput(e.target.value)}
     ></TextField>
-    <Button variant="contained" sx={{
+    <Button
+    id='search_query'
+    variant="contained" sx={{
       marginTop: 3,
       }}
       onClick={()=> setSearchText(input)}>

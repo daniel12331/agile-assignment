@@ -97,7 +97,7 @@ export default function MovieCard({ movie, action }) {
           </Link>
           ) :
           movie.name ? (
-            <Link to={`/tvshows/${movie.id}`}>
+            <Link to={`/tvshows/${movie.id}`} id={movie.id}>
             <Button variant="outlined" size="medium" color="primary">
               More Info ...
             </Button>
