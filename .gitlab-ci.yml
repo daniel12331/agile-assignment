@@ -4,6 +4,7 @@ image: node:latest
 stages:
   - install
   - build
+  - testing
 
 variables:
    npm_config_cache: "$CI_PROJECT_DIR/.npm"
@@ -31,6 +32,15 @@ bundle_app:
   artifacts:
     paths:
       - build/
+
+testing:
+  image: cypress/browsers:node12.14.1-chrome85-ff81
+  stage: testing
+  only:
+   - main
+  script:
+   - echo "Run tests in headless mode"
+   - npm run start:ci
 
 
 
