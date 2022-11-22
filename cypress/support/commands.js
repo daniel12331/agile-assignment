@@ -68,7 +68,7 @@ Cypress.Commands.add('registerUser', (name,email,password,cpassword) => {
     cy.on('uncaught:exception', (err, runnable) => {
         return false;
     })
-    cy.get(`a[href*="actors/${ID}"]`)
+    cy.get(`a[href*="${type}/${ID}"]`)
     .click()
      cy.url().should("eq", `http://localhost:3000/${type}/${ID}`);
   });

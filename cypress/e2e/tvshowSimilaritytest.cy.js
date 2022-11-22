@@ -1,14 +1,15 @@
-
+import "../support/commands"
 describe("Test tv show similarity", () => {
     let similarTvShowID
-    const tvshowID = '90462' //Chucky TV show ID
+    const ID = '90462' //Chucky TV show ID
     const email = "daniel123@gmail.com"
     const password = "123456"
+    const type = "tvshows"
 
     describe("Get specfic similar tv shows by ID", () => {
         before(() => {
           cy.request(
-            `https://api.themoviedb.org/3/tv/${tvshowID}/similar?api_key=${Cypress.env(
+            `https://api.themoviedb.org/3/tv/${ID}/similar?api_key=${Cypress.env(
               "TMDB_KEY"
             )}&language=en-US&page=1`
           )      
@@ -19,55 +20,36 @@ describe("Test tv show similarity", () => {
             });
         });
       
-        
-    describe("Login already created user", () => {
-    
-        it("Check if user directed to landing page when visiting the home page", () => {
-         cy
-         .visit("/")
-        });
-
-        it("Fill in user details", () => {
-            cy.get("#email")
-            .clear()
-            .type(email); 
-            
-            cy.get("#password")
-            .clear()
-            .type(password);
-           });
-
-           it("Log in", () => {
-            cy.get("button")
-            .contains("Sign In")
-            .click();  
-            cy.url().should("eq", `http://localhost:3000/`);
-           });
-
-    });
+        describe("Login already created user", () => {
+          it("Login User", () => {
+              cy.LoginUser(email,password)
+              
+             });
   
-    describe("Click TVShow more info button", () => {
-
-        it("Navigate to TV Show page", () => {
-            cy.get("button")
-            .contains("TVShows")
-            .click(); 
-            cy.url().should("eq", `http://localhost:3000/movies/tvshows`);
-           });
+      });
     
-        it("Click On TV Show more info", () => {
-        cy.get(`a[href*="tvshows/${tvshowID}"]`)
-        .click()
-         cy.url().should("eq", `http://localhost:3000/tvshows/${tvshowID}`);
+      describe("Click TV show more info button", () => {
+  
+          it("Navigate to Actor page", () => {
+              cy.Navigate("TVShows")
+             });
+      
+  
+          it("Click On Actor more info", () => {
+              cy.MoreInfo(ID,type)
+          });
+  
+          
+      });
+  
+      describe("Check Actor Credits are correct", () => {
+          it("Check the first title of tvshow", () => {
+          
+             cy.CheckCard(similarTvShowID[0].original_name);
+     
+             cy.LogoutUser()
+          });
         });
-
-        it("Check the first title of tvshow", () => {
-            cy.get(".MuiCardHeader-content").eq(0)
-            .contains(similarTvShowID[0].original_name)
-           });
-
-    });
-
 });
 });
 
