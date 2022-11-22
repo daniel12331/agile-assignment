@@ -54,6 +54,7 @@ describe("Test Search Movie", () => {
         
         it("Check the first title of actor results", () => {
             cy.CheckCard(actorList[0].name)
+            cy.LogoutUser()
            });
     });
 
