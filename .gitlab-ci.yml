@@ -40,7 +40,7 @@ testing:
    - main
   script:
    - echo "Run tests in headless mode"
-   - npm run start
+   - npm run start:ci
 
 
 
