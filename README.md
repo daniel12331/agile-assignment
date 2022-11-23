@@ -54,9 +54,11 @@ https://github.com/daniel12331/agile-assignment
 ## Independent learning (If relevant).
 
 + Custom Commands / Error Handling - cypress/support/command - Custom cypress commands that are reused in some of the tests, implemented with error handling also
+
 ![](./images/Screenshot_1.png)
 
 + Code Splitting - src/index
+
 ![](./images/Screenshot_2.png)
 
 + Using new cypress functionality - cypress/support/command - Using new cypress functionality like .should(), .wait()...
