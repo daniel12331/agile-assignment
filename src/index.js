@@ -17,7 +17,7 @@ const MovieReviewPage = lazy(() => import("./pages/movieReviewPage"));
 const FavoriteMoviesPage = lazy(() => import("./pages/favoriteMoviesPage"));
 const UpComingMoviePage = lazy(() => import("./pages/upComingMoviePage"));
 const SearchPage = lazy(() => import("./pages/searchPage"));
-const HomePage = lazy(()=> import("./pages/homePage"))
+const HomePage = lazy(()=> import("./pages/homePage"));
 
 function PrivateOutlet() {
   const {currentUser} = useAuth()
